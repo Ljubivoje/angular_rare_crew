@@ -20,12 +20,14 @@ export class ApiService {
     const employeeMap = new Map<string,number>();
     data.forEach(element => {
     if (element.DeletedOn != null) {
+      console.error("Deleted.");
       return; 
     }
     if(element.EmployeeName == "" || element.EmployeeName==null){
+      console.error("Employee's name can't be empty string or null");
       return;
     }
-    if(!element.StarTimeUtc || !element.EndTimeUtc){
+    if(!element.StarTimeUtc || !element.EndTimeUtc){   
       return;
     }
     const startTime = new Date(element.StarTimeUtc);
@@ -37,7 +39,7 @@ export class ApiService {
     const wokringTimeInMiliseconds = endTime.getTime() - startTime.getTime();
     const totalWorkHours = Math.floor(wokringTimeInMiliseconds / 3600000);
     if(totalWorkHours<0){
-      console.error("Starting time cannot be greater than ending time.");
+      console.error(`Start time ${startTime} can't be greater than end time ${endTime}`);
       return;
     }
     if(employeeMap.has(element.EmployeeName)) {

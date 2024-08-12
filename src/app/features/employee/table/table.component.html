@@ -1,0 +1,23 @@
+<div *ngIf="employees.length > 0; else noEmployees">
+    <table class="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Total time in month</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let e of employees">
+          <tr [ngClass]="{'red': e.total_hours<100}">
+            <td>{{e.name}}</td>
+            <td>{{e.total_hours}}</td>
+            <td>
+              <a href="#">Edit</a>
+            </td>
+          </tr>
+        </tbody>
+    </table>
+</div>
+<ng-template #noEmployees>
+      <p>No employees</p>
+</ng-template>
